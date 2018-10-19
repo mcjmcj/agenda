@@ -1,0 +1,17 @@
+C:\inetpub\wwwroot\TFS\Agenda\Agenda.Dados\bin\Debug\Agenda.Dados.dll
+C:\inetpub\wwwroot\TFS\Agenda\Agenda.Dados\bin\Debug\Agenda.Dados.pdb
+C:\inetpub\wwwroot\TFS\Agenda\Agenda.Dados\bin\Debug\Dapper.dll
+C:\inetpub\wwwroot\TFS\Agenda\Agenda.Dados\bin\Debug\Dapper.xml
+C:\inetpub\wwwroot\TFS\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.csprojResolveAssemblyReference.cache
+C:\inetpub\wwwroot\TFS\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.csproj.CoreCompileInputs.cache
+C:\inetpub\wwwroot\TFS\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.dll
+C:\inetpub\wwwroot\TFS\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.pdb
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\bin\Debug\Agenda.Dados.dll
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\bin\Debug\Agenda.Dados.pdb
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\bin\Debug\Dapper.dll
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\bin\Debug\Dapper.xml
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.csprojAssemblyReference.cache
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.csproj.CoreCompileInputs.cache
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.csproj.CopyComplete
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.dll
+C:\inetpub\wwwroot\Agenda\Agenda.Dados\obj\Debug\Agenda.Dados.pdb

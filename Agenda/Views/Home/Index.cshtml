@@ -1,0 +1,100 @@
+﻿@using Agenda.Dados.Models;
+@model IEnumerable<Agenda.Dados.Models.Contato>
+
+
+@{
+    var lista = new List<SelectListItem>();
+
+
+    foreach (Contato.TiposPesquisa tipo in Enum.GetValues(typeof(Contato.TiposPesquisa)))
+    {
+        SelectListItem selectListItem = new SelectListItem();
+        selectListItem.Text = tipo.ToString();
+        selectListItem.Value = tipo.ToString();
+        //selectListItem.Selected = Tipo == tipo.ToString();
+
+        lista.Add(selectListItem);
+    }
+}
+
+<script type="text/javascript" src="Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    function pesquisar() {
+        var pesquisa = document.getElementById("tbxPesquisar").value;
+        var tipoPesquisa = document.getElementById("TipoPesquisa").value;
+        console.log(window.location);
+        window.open(window.location.origin + window.location.pathname + "?pesquisa=" + pesquisa + "&tipo=" + tipoPesquisa, '_top');
+
+
+    }
+</script>
+<Center>
+    <p>
+        Pesquisar
+        @Html.DropDownList("TipoPesquisa", lista, new { @style = "height:26px;" })
+        <input type="text" id="tbxPesquisar" />
+        <input type="button" id="Pesquisar" value="Pesquisar" onclick="javascript: pesquisar();" class="btn btn-primary" />
+
+    </p>
+
+    <br />
+    <br />
+
+    <p>
+        @Html.ActionLink("Novo Contato", "novo", "contato", null, new { @class = "btn btn-primary " })
+
+    </p>
+
+    <table class="table">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                Telefone
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var contato in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => contato.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => contato.Nome)
+                </td>
+                <td>
+                    <ul>
+                        @foreach (Telefone tel in contato.Telefones)
+                        {
+                            <li>@(tel.Tipo + " " + tel.Numero)</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        @foreach (Email email in contato.Emails)
+                        {
+                            <li>@(email.Tipo + " " + email.DesEmail)</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", "Contato", new { codigo = contato.Codigo }, new { @class = "btn btn-primary " })
+                    @Html.ActionLink("Excluir", "Excluir", "Contato", new { codigo = contato.Codigo }, new { @class = "btn btn-danger " })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</Center>

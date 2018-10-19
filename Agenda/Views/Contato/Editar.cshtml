@@ -1,0 +1,165 @@
+﻿@using Agenda.Dados.Models;
+@model Agenda.Dados.Models.Contato
+
+@{
+    var listaTelefone = new List<SelectListItem>();
+    var listaEmail = new List<SelectListItem>();
+
+    foreach (var t in Model.Telefones)
+    {
+        foreach (Agenda.Dados.Models.Telefone.TiposTelefone tipo in Enum.GetValues(typeof(Agenda.Dados.Models.Telefone.TiposTelefone)))
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = tipo.ToString();
+            selectListItem.Value = tipo.ToString();
+            selectListItem.Selected = t.Tipo == tipo.ToString();
+
+            listaTelefone.Add(selectListItem);
+        }
+    }
+
+    foreach (var t in Model.Emails)
+    {
+        foreach (Agenda.Dados.Models.Telefone.TiposTelefone tipo in Enum.GetValues(typeof(Agenda.Dados.Models.Telefone.TiposTelefone)))
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = tipo.ToString();
+            selectListItem.Value = tipo.ToString();
+            selectListItem.Selected = t.Tipo == tipo.ToString();
+
+            listaTelefone.Add(selectListItem);
+        }
+    }
+}
+
+<script type="text/javascript" src="../Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".addTelefone").click(function () {
+
+            var rowCount = $('.telefoneDivRow').length;
+            console.log(rowCount);
+            $("#ListaTelefone").append('<div class="telefoneDivRow"><input type="text" name="Telefones[' + rowCount + '].Numero" class="telefoneNumero" required="required" /> <select name="Telefones[' + rowCount + '].Tipo" class="telefoneTipo " style=" height:26px;">@foreach (SelectListItem item in listaTelefone)
+            {<option value="@item.Value">@item.Text</option>}</select> <a href="javascript:void(0);" class="delTelefone">Remover</a></div>');
+            $('.telefoneNumero').each(function (index) {
+                $(this).attr('name', 'Telefones[' + index + '].Numero');
+                $(this).attr('id', 'Telefones[' + index + '].Numero');
+                $(this).mask("(99) 9999-9999?9");
+            });
+        });
+
+        $("#ListaTelefone").on('click', '.delTelefone', function () {
+
+            $(this).closest('.telefoneDivRow').remove();
+
+            $('.telefoneTipo').each(function (index) {
+                $(this).attr('name', 'Telefones[' + index + '].Tipo');
+            });
+
+            $('.telefoneNumero').each(function (index) {
+                $(this).attr('name', 'Telefones[' + index + '].Numero');
+                $(this).attr('id', 'Telefones[' + index + '].Numero');
+                $(this).mask("(99) 9999-9999?9");
+            });
+        })
+
+        $(".addEmail").click(function () {
+
+            var rowCount = $('.emailDivRow').length;
+
+            $("#ListaEmail").append('<div class="emailDivRow"><input type="text" name="Emails[' + rowCount + '].DesEmail" class="emailDes" /> <select name="Emails[' + rowCount + '].Tipo" class="emailTipo " style=" height:26px;">@foreach (SelectListItem item in listaEmail)
+            {<option value="@item.Value">@item.Text</option>}</select> <a href="javascript:void(0);" class="delEmail">Remover</a></div>');
+            $('.emailDes').each(function (index) {
+                $(this).attr('name', 'Emails[' + index + '].DesEmail');
+                $(this).attr('id', 'Emails[' + index + '].DesEmail');
+            });
+        });
+
+        $("#ListaEmail").on('click', '.delEmail', function () {
+
+            $(this).closest('.emailDivRow').remove();
+
+            $('.emailTipo').each(function (index) {
+                $(this).attr('name', 'Emails[' + index + '].Tipo');
+            });
+
+            $('.emailNumero').each(function (index) {
+                $(this).attr('name', 'Emails[' + index + '].DesEmail');
+                $(this).attr('id', 'Emails[' + index + '].DesEmail');
+            });
+        })
+    });
+</script>
+
+<h1>Editar Contato</h1>
+
+@using (Html.BeginForm("Salvar", "Contato", FormMethod.Post))
+{
+    <p>
+        @Html.LabelFor(model => model.Codigo)
+        @Html.DisplayFor(model => model.Codigo)
+        @Html.HiddenFor(model => model.Codigo)
+    </p>
+
+    <p>
+        <div>@Html.LabelFor(model => model.Nome)</div>
+        <div>@Html.TextBoxFor(model => model.Nome, new { required = "required" })</div>
+        @Html.ValidationMessageFor(model => model.Nome)
+    </p>
+
+    <p>
+        <div>@Html.LabelFor(model => model.Empresa)</div>
+        <div>@Html.TextBoxFor(model => model.Empresa)</div>
+        @Html.ValidationMessageFor(model => model.Empresa)
+    </p>
+
+    <p>
+        <div>@Html.LabelFor(model => model.Endereco)</div>
+        <div>@Html.TextBoxFor(model => model.Endereco)</div>
+        @Html.ValidationMessageFor(model => model.Endereco)
+    </p>
+
+    <div id="ListaTelefone">
+        <label>Telefone</label>
+        @for (int i = 0; i < Model.Telefones.Count(); i++)
+        {
+            <div class="telefoneDivRow">
+                @Html.DropDownList("Telefones[" + i + "].Tipo", listaTelefone, new { @class = "telefoneTipo" })
+
+                @Html.TextBoxFor(model => Model.Telefones[i].Numero, new { @class = "telefoneNumero" })
+                @Html.ValidationMessageFor(model => Model.Telefones[i].Numero)
+
+                <a href="javascript:void(0);" class="delTelefone">Remover</a>
+            </div>
+        }
+    </div>
+
+    <p>
+        <a href="javascript:void(0);" class="addTelefone">Adicionar Telefone</a>
+    </p>
+
+    <div id="ListaEmail">
+        <label>Email</label>
+        @for (int i = 0; i < Model.Emails.Count; i++)
+        {
+            <div class="telefoneDivRow">
+                @Html.DropDownList("Emails[" + i + "].Tipo", listaEmail, new { @class = "emailTipo" })
+
+                @Html.TextBoxFor(model => Model.Emails[i].DesEmail, new { @class = "emailDes" })
+                @Html.ValidationMessageFor(model => Model.Emails[i].DesEmail)
+
+                <a href="javascript:void(0);" class="delEmail">Remover</a>
+            </div>
+        }
+    </div>
+
+    <p>
+        <a href="javascript:void(0);" class="addEmail">Adicionar Email</a>
+    </p>
+
+    <p>
+        <input type="submit" name="btnSubmit" value="Salvar" class="btn btn-primary" />
+    </p>
+
+}
